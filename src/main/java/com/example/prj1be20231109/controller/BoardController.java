@@ -37,6 +37,8 @@ public class BoardController {
         return service.list();
     }
 
+    // {id}는 {}랑 PathVariable 조합으로 Integer id의 값을 받는다.
+    // @GetMapping("id/{id}") --> 앞의 id는 그냥 id로 들어가고, {id}는 parameter의 id값으로 들어간것!
     @GetMapping("id/{id}")
     public Board get(@PathVariable Integer id) {
         return service.get(id);
