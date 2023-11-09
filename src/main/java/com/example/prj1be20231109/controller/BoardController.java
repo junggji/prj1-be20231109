@@ -20,6 +20,9 @@ public class BoardController {
 
     @PostMapping("add")
     public ResponseEntity add(@RequestBody Board board) {
+        if(!service.vaildate(board)) {
+            return ResponseEntity.badRequest().build();
+        }
 
         if (service.save(board)) {
          return   ResponseEntity.ok().build();
