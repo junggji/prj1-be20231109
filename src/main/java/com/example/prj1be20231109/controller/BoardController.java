@@ -43,4 +43,13 @@ public class BoardController {
     public Board get(@PathVariable Integer id) {
         return service.get(id);
     }
+
+    @DeleteMapping("remove/{id}")
+    public ResponseEntity remove(@PathVariable Integer id) {
+        if (service.remove(id)) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
 }
