@@ -18,6 +18,8 @@ public class BoardService {
     }
 
 
+
+    // 빈 값이 있으면 badRequest 응답 하는 코드-------------
     public boolean vaildate(Board board) {
         if(board == null) {
             return false;
