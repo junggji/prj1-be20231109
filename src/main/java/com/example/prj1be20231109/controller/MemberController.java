@@ -3,9 +3,10 @@ package com.example.prj1be20231109.controller;
 import com.example.prj1be20231109.domain.Member;
 import com.example.prj1be20231109.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -43,5 +44,10 @@ public class MemberController {
         } else {
             return ResponseEntity.ok().build();
         }
+    }
+
+    @GetMapping("list")
+    public List<Member> list() {
+        return service.list();
     }
 }
