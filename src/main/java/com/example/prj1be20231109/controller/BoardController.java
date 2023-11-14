@@ -1,7 +1,9 @@
 package com.example.prj1be20231109.controller;
 
 import com.example.prj1be20231109.domain.Board;
+import com.example.prj1be20231109.domain.Member;
 import com.example.prj1be20231109.service.BoardService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +20,12 @@ public class BoardController {
     private final BoardService service;
 
     @PostMapping("add")
-    public ResponseEntity add(@RequestBody Board board) {
+    public ResponseEntity add(@RequestBody Board board,
+                              @SessionAttribute(value = "login", required = false) Member login) {
+            // SessionAttribute사용해서 login 객체 얻기 로그인 안했을시 null값
+
+        System.out.println("login = " + login);
+
 
 
         if(!service.vaildate(board)) {
