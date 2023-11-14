@@ -1,5 +1,6 @@
 package com.example.prj1be20231109.service;
 
+import com.example.prj1be20231109.domain.Auth;
 import com.example.prj1be20231109.domain.Member;
 import com.example.prj1be20231109.mapper.BoardMapper;
 import com.example.prj1be20231109.mapper.MemberMapper;
@@ -88,6 +89,9 @@ public class MemberService {
         // 아이디로 조회하여 dbmember에 넣고, dbMember의 password와 인자로 받은 member의 password 일치시 true
         if (dbMember != null) {
             if (dbMember.getPassword().equals(member.getPassword())) {
+                List<Auth> auth = mapper.selectAuthById(member.getId());
+
+                dbMember.setAuth(auth);
 
                 // 위에 if문에서 이미 검증했으니 password 노출되지 안도로고 공란으로 놓기
                 dbMember.setPassword("");
