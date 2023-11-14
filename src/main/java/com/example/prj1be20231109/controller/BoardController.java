@@ -5,6 +5,8 @@ import com.example.prj1be20231109.domain.Member;
 import com.example.prj1be20231109.service.BoardService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,15 +26,15 @@ public class BoardController {
                               @SessionAttribute(value = "login", required = false) Member login) {
             // SessionAttribute사용해서 login 객체 얻기 로그인 안했을시 null값
 
-        System.out.println("login = " + login);
-
-
+        if (login == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
 
         if(!service.vaildate(board)) {
             return ResponseEntity.badRequest().build();
         }
 
-        if (service.save(board)) {
+        if (service.save(board, login)) {
          return   ResponseEntity.ok().build();
         } else {
            return ResponseEntity.internalServerError().build();
