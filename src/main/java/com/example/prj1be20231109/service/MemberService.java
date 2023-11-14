@@ -90,4 +90,8 @@ public class MemberService {
         }
         return false;
     }
+
+    public boolean hasAcess(String id, Member login) {
+        return login.getId().equals(id);
+    }
 }
