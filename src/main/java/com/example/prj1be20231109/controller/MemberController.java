@@ -2,6 +2,7 @@ package com.example.prj1be20231109.controller;
 
 import com.example.prj1be20231109.domain.Member;
 import com.example.prj1be20231109.service.MemberService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -105,6 +106,14 @@ public class MemberController {
             // 권한 없음 코드 401 -> 로그인 안되어 권한없음
             //              403 -> 로그인 됐지만 권한없음
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+    }
+
+    @PostMapping("logout")
+    public void logout(HttpSession session) {
+        // 로그아웃 시 세션을 초기화
+        if(session != null) {
+            session.invalidate();
         }
     }
 }
