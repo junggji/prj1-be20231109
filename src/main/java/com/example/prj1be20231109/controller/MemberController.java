@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
 import java.util.List;
 
@@ -94,9 +95,11 @@ public class MemberController {
     }
 
     @PostMapping("login")
-    public ResponseEntity login(@RequestBody Member member) {
+    public ResponseEntity login(@RequestBody Member member, WebRequest request) {
 
-        if (service.login(member)) {
+        // WebRequest 메소드 중에 session관련 메소드있음(하나의 브라우저에서 온 요청을 공유하는)
+
+        if (service.login(member, request)) {
             return ResponseEntity.ok().build();
         } else {
             // 권한 없음 코드 401 -> 로그인 안되어 권한없음

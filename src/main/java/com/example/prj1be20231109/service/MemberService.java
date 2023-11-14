@@ -4,6 +4,8 @@ import com.example.prj1be20231109.domain.Member;
 import com.example.prj1be20231109.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.WebRequest;
 
 import java.util.List;
 
@@ -72,12 +74,17 @@ public class MemberService {
     }
 
 
-    public boolean login(Member member) {
+    public boolean login(Member member, WebRequest request) {
         Member dbMember = mapper.selectById(member.getId());
 
         // 아이디로 조회하여 dbmember에 넣고, dbMember의 password와 인자로 받은 member의 password 일치시 true
         if (dbMember != null) {
             if (dbMember.getPassword().equals(member.getPassword())) {
+
+                // 위에 if문에서 이미 검증했으니 password 노출되지 안도로고 공란으로 놓기
+                dbMember.setPassword("");
+                // 로그인 성공시 쿠키를 세션에 넣는다. (login객체에 dbMember(로그인정보)가 저장이되었다!!!)
+                request.setAttribute("login", dbMember, RequestAttributes.SCOPE_SESSION);
                 return true;
             }
         }
