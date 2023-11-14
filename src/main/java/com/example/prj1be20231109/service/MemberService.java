@@ -104,6 +104,20 @@ public class MemberService {
     }
 
     public boolean hasAcess(String id, Member login) {
+        if (isAdmin(login)) {
+            return true;
+        }
         return login.getId().equals(id);
+    }
+
+    // Admin인지 확인하는 메소드
+    public boolean isAdmin(Member login) {
+        if (login.getAuth() != null) {
+            return login.getAuth()
+                    .stream()
+                    .map(e -> e.getName())
+                    .anyMatch(n -> n.equals("admin"));
+        }
+        return false;
     }
 }
