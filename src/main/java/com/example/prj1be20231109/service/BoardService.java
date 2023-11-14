@@ -32,9 +32,6 @@ public class BoardService {
         if (board.getTitle() == null || board.getTitle().isBlank()) {
             return false;
         }
-        if (board.getWriter() == null || board.getWriter().isBlank()) {
-            return false;
-        }
         return true;
     }
 
