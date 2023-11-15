@@ -44,6 +44,8 @@ public class CommentService {
 
     public boolean hasAccess(Integer id, Member login) {
         // id로 얻은 memberid가 login memberid와 일치하는지 검증
+
+        // comment객체에 받은 id의 값들을 넣기 위해서 selectById 작성
         Comment comment = mapper.selectById(id);
 
         return comment.getMemberId().equals(login.getId());

@@ -45,6 +45,7 @@ public class CommentController {
     @DeleteMapping("{id}")
     public ResponseEntity remove(@PathVariable Integer id,
                        @SessionAttribute(value = "login", required = false) Member login) {
+
         if (login == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
