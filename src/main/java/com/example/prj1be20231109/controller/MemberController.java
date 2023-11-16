@@ -72,7 +72,7 @@ public class MemberController {
        }
 
        if (!service.hasAcess(id, login)) {
-           return ResponseEntity.status(HttpStatus.FORBIDDEN).build(); // 403
+           return ResponseEntity.status(HttpStatus.FORBIDDEN).build(); // 403 ,
        }
 
        Member member = service.getMember(id);
