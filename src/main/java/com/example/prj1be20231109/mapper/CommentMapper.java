@@ -22,7 +22,7 @@ public interface CommentMapper {
                 c.inserted,
                 m.nickName memberNickName
         FROM comment c JOIN member m ON c.memberId = m.id
-        WHERE boardId = 4
+        WHERE boardId = #{boardid}
         ORDER BY c.id DESC;
         """
     )

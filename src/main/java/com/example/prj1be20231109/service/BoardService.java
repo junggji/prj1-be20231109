@@ -49,6 +49,7 @@ public class BoardService {
     }
 
     public boolean remove(Integer id) {
+        // 삭제코드
         return mapper.deleteById(id) == 1;
     }
 
