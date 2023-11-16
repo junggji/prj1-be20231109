@@ -13,8 +13,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardService {
 
-    // isAdmin 사용을 위해 injection
-    private final MemberService memberService;
 
     // 주입을 위해 RArgs
     private final BoardMapper mapper;
@@ -63,7 +61,11 @@ public class BoardService {
     }
 
     public boolean hasAccess(Integer id, Member login) {
-        if (memberService.isAdmin(login)) {
+        if (login == null) {
+            return false;
+        }
+
+        if (login.isAdmin()) {
             return true;
         }
         Board board = mapper.selectById(id);
