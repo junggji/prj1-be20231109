@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController // controller + responsebody
 @RequiredArgsConstructor
@@ -43,7 +44,11 @@ public class BoardController {
 
     // /api/board/list?p=6
     @GetMapping("list")
-    public List<Board> list(@RequestParam(value = "p", defaultValue = "1") Integer page) {
+    public Map<String, Object> list(@RequestParam(value = "p", defaultValue = "1") Integer page) {
+        // Map넘어가는 데이터들 (1. 예전 Board관련 boardList, 2. 페이지관련 list)
+        // boardList, List<Board>
+        // pageInfo, ....
+
         return service.list(page);
 
     }
