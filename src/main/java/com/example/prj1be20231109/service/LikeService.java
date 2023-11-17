@@ -6,13 +6,16 @@ import com.example.prj1be20231109.mapper.LikeMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 @RequiredArgsConstructor
 public class LikeService {
 
     private final LikeMapper mapper;
 
-    public void update(Like like, Member login) {
+    public Map<String, Object> update(Like like, Member login) {
+
         like.setMemberId(login.getId());
         // 처음 좋아요를 누를 때 : insert
         // 다시 누르면 : delete
@@ -23,5 +26,22 @@ public class LikeService {
         if (mapper.delete(like) == 0) {
             count = mapper.insert(like);
         }
+
+        int countLike = mapper.countByBoardId(like.getBoardId());
+
+        return Map.of("like", count == 1,
+                "countLike", countLike);
+    }
+
+    public Map<String, Object> get(Integer boardId, Member login) {
+        int countLike = mapper.countByBoardId(boardId);
+
+        Like like = null;
+        if (login != null) {
+            like = mapper.selectByBoardIdAndMemberId(boardId, login.getId());
+        }
+
+        // boardid와 로그인id로 조회한 결과가 있으면 like의 상태가 true, 없으면 false
+        return Map.of("like", like != null, "countLike", countLike);
     }
 }
