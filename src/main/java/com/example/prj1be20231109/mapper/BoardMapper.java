@@ -17,15 +17,18 @@ public interface BoardMapper {
 
 
     // 댓글이 없는것도 나와야 하므로 LEFT JOIN으로 한다.
+    // 곱연산으로 나오기때문에 DISTINCT를 붙여준다.
     @Select("""
-        SELECT b.id,
+            SELECT b.id,
                b.title,
                b.writer,
                m.nickName,
                b.inserted,
-               COUNT(c.id) countComment
+               COUNT(DISTINCT c.id) countComment,
+                COUNT(DISTINCT l.id) countLike
         FROM board b JOIN member m ON b.writer = m.id
-                    LEFT JOIN comment c ON b.id = c.boardId
+                     LEFT JOIN comment c ON b.id = c.boardId
+                    LEFT JOIN boardLike l ON b.id = l.boardId
         GROUP BY b.id
         ORDER BY b.id DESC;
         """)
