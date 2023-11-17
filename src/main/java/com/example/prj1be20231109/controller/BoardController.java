@@ -41,9 +41,10 @@ public class BoardController {
         }
     }
 
+    // /api/board/list?p=6
     @GetMapping("list")
-    public List<Board> list() {
-        return service.list();
+    public List<Board> list(@RequestParam(value = "p", defaultValue = "1") Integer page) {
+        return service.list(page);
     }
 
     // {id}는 {}랑 PathVariable 조합으로 Integer id의 값을 받는다.

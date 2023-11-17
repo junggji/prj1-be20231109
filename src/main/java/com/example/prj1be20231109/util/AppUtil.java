@@ -6,6 +6,8 @@ import java.time.Period;
 import java.time.temporal.ChronoUnit;
 
 public class AppUtil {
+    // 작성시간 구하는 로직 ex) a --> inserted, b --> LocalDateTime.now()
+
     public static String getAgo(LocalDateTime a, LocalDateTime b) {
 
         if (a.isBefore(b.minusYears(1))) {
