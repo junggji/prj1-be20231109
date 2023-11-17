@@ -58,6 +58,7 @@ public class BoardService {
         int prevPageNumber = startPageNumber - 10;
         int nextPageNumber = endPageNumber + 1;
 
+        pageInfo.put("currentPageNumber", page);
         pageInfo.put("startPageNumber", startPageNumber);
         pageInfo.put("endPageNumber", endPageNumber);
         if (prevPageNumber > 0) {
